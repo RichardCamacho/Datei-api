@@ -59,28 +59,32 @@ class PortadasController extends Controller
         $filePath = $portada->path;
 
         if (Storage::disk('covers')->exists($fileName)) {
-            return Storage::get($filePath);
+
+            $pathToFile = public_path($filePath);
+
+            $headers = [
+                'Content-Type' => 'image/png'
+            ];
+
+            return response()->file($pathToFile, $headers);
+
+            // return Storage::get($filePath);
             // return response()->json(["message" => "Existe"]);
         }else{
             return response()->json(['message' => 'Archivo no encontrado'], 404);
         }
     }
 
-    //consultar una portada por id
-    public function getCoverById($id)
+    //consultar la informacion de la portada de base de datos
+    public function getCoverInfo($idC)
     {
-        $portada = Portadas::find($id);
+        $portada = Portadas::where("curso","=",$idC)
+                            ->first();
         if (is_null($portada)) {
             return response()->json(['message' => 'Portada no encontrada'], 404);
         }
 
-        if (Storage::disk('images')->exists($portada->nombre)) {
-            $file = Storage::get($portada->nombre);
-            return response($file, 200)->header('Content-Type', 'image/*');
-        }else{
-            return response()->json(['message' => 'Archivo no encontrado'], 404);
-        }
-
+        return response()->json($portada,200);
     }
 
     //consultar Archivos por Id y seccción
@@ -120,14 +124,27 @@ class PortadasController extends Controller
     }
 
     //eliminar un registro de portada
-    public function deleteCover($id)
+    public function deleteCover($idC)
     {
         //se verifica si el registro existe
-        $portada = Portadas::find($id);
+        $portada = Portadas::where("curso","=",$idC)
+                            ->first();
         if (is_null($portada)) {
             return response()->json(['message' => 'Portada no encontrada'], 404);
         }
-        $portada->delete();
-        return response()->json(['message' => 'Portada eliminada'], 200);
+
+        $fileName = $portada->nombre;
+
+        //borra de la carpeta
+        if(Storage::disk('covers')->exists($fileName)){
+            Storage::disk('covers')->delete($fileName);
+            
+            //borra de la base de datos
+            $portada->delete();
+
+            return response()->json(['message' => 'Archivo eliminado'], 200);
+        }else{
+            return response()->json(['message' => 'Archivo no encontrado'], 404);
+        }
     }
 }

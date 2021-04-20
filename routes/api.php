@@ -330,8 +330,8 @@ Route::post('/upload-cover', 'PortadasController@register');
 Route::get('/list-files/{idS}/{tipo}', 'SeccionesController@getFileList');
 //consultar un registro de portada por id de curso
 Route::get('/subject-cover/{idC}', 'PortadasController@GetCoverByC');
-//consultar un registro de portada por id
-Route::get('/cover/{id}', 'PortadasController@getCoverById');
+//consultar informacion de la portada desde la base de datos
+Route::get('/cover/{idC}', 'PortadasController@getCoverInfo');
 //actualizar un registro de portada
 Route::put('/update-cover/{id}', 'PortadasController@updateCover');
 //eliminar un registro de un registro de portada
