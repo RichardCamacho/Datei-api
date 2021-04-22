@@ -23,6 +23,6 @@ class TiposReferencia extends Model
 
     public function detallesTipoReferencia()
     {
-        return $this->hasMany(DetalleTipoReferencia::class, 'tipoReferencia');
+        return $this->hasMany(DetalleTipoReferencia::class, 'tipoReferencia')->orderBy('nombre');
     }
 }

@@ -18,6 +18,7 @@ class CarpetasAsignaturaController extends Controller
         $carpetaAsignatura = CarpetasAsignatura::create([
             'nombre' => $request->nombre,
             'codigo' => $request->codigo,
+            'indicador' => $request->indicador,
             'curriculum' => $request->curriculum,
             'curso' => $request->curso,
             'idUsuario' => $request->idUsuario

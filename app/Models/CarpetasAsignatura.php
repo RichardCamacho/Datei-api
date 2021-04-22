@@ -19,6 +19,7 @@ class CarpetasAsignatura extends Model
     protected $fillable = [
         'nombre',
         'codigo',
+        'indicador',
         'curriculum',
         'curso',
         'idUsuario'

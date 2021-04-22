@@ -29,7 +29,8 @@ class DetalleTipoReferenciaController extends Controller
     //consultar detalles tipo de referencia por id
     public function getDetalleTipoReferenciaById($id)
     {
-        $detalleTipoReferencia = DetalleTipoReferencia::find($id);
+        $detalleTipoReferencia = DetalleTipoReferencia::where("id", "=", $id)
+                                                        ->first();
         if (is_null($detalleTipoReferencia)) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }

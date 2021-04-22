@@ -19,6 +19,7 @@ class CarpetasSo extends Model
     protected $fillable = [
         'nombre',
         'codigo',
+        'indicador',
         'idUsuario'
     ];
 

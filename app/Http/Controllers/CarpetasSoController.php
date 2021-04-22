@@ -18,6 +18,7 @@ class CarpetasSoController extends Controller
         $carpetaSo = CarpetasSo::create([
             'nombre' => $request->nombre,
             'codigo' => $request->codigo,
+            'indicador' => $request->indicador,
             'idUsuario' => $request->idUsuario
         ]);
 

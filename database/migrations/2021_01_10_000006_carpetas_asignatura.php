@@ -17,6 +17,7 @@ class CarpetasAsignatura extends Migration
             $table->bigIncrements('id')->nullable(false);//primary key
             $table->string('nombre', 100)->nullable(false);
             $table->string('codigo', 100)->nullable(false);
+            $table->string('indicador', 100)->nullable(false);
             $table->unsignedBigInteger('curriculum')->nullable(false);
             $table->unsignedBigInteger('curso')->nullable(false);
             $table->unsignedBigInteger('idUsuario')->nullable(false);
