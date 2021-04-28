@@ -33,6 +33,15 @@ class InformacionCurso extends Model
         'idCurso'
     ];
 
+    public function tipoCurso()
+    {
+        return $this->hasOne(DetalleTipoReferencia::class, 'id', 'tipoCurso');
+    }
+    public function profesor()
+    {
+        return $this->hasOne(User::class, 'id', 'idUsuario');
+    }
+
     public function libros()
     {
         return $this->hasMany(Libros::class, 'curso');

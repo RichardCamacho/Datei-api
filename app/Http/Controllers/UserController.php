@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\DetalleTipoReferencia;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -46,6 +47,31 @@ class UserController extends Controller
     {
         $users = User::orderBy('primerNombre', 'asc')
             ->get();
+        return response()->json($users, 200);
+    }
+
+    //consulta de todos los usuarios filtrados por programa con algunos detalles
+    public function listUSersDetails($id)
+    {
+        $users = User:: where('programa', '=', $id)
+                        ->with('rango')
+                        ->with('rol')
+                        ->with('programa')
+                        ->orderBy('primerNombre', 'asc')
+                        ->get();
+        return response()->json($users, 200);
+    }
+
+    //consulta de todos los usuarios filtrados por programa con algunos detalles
+    public function listUSersCurriculum($id)
+    {
+        $users = User:: where('users.programa', '=', $id)
+                        ->with('rango')
+                        ->leftJoin('hojas_vida', 'users.id', '=', 'hojas_vida.idUsuario')
+                        ->select('users.primerNombre', 'users.segundoNombre', 'users.primerApellido', 'users.segundoApellido', 'users.rango', 'hojas_vida.id as curriculum')
+                        ->orderBy('users.primerNombre', 'asc')
+                        ->get();
+                        
         return response()->json($users, 200);
     }
 

@@ -102,4 +102,15 @@ class HojasVidaController extends Controller
 
         return response()->json($hojaVida, 200);
     }
+
+    //consulta de todos los registros filtrados por programa con algunos detalles
+    public function listCurriculumDetails($id)
+    {
+        $hojaVida = HojasVida:: where('programa', '=', $id)
+                                ->with('rango')
+                                ->with('rol')
+                                ->with('programa')
+                                ->get();
+        return response()->json($hojaVida, 200);
+    }
 }

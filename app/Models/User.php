@@ -50,4 +50,16 @@ class User extends Authenticatable
     protected $casts = [];
 
     //aquí colocaría algunas consultas de eloquent
+    public function rango()//obtiene el objeto rango
+    {
+        return $this->hasOne(DetalleTipoReferencia::class, 'id', 'rango');
+    }
+    public function rol()//obtiene el objeto rol
+    {
+        return $this->hasOne(DetalleTipoReferencia::class, 'id', 'rol');
+    }
+    public function programa()//obtiene el objeto programa
+    {
+        return $this->hasOne(DetalleTipoReferencia::class, 'id', 'programa');
+    }
 }

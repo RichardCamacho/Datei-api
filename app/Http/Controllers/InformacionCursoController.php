@@ -58,20 +58,44 @@ class InformacionCursoController extends Controller
     public function getSubjectInfDetById($id)
     {
         $informacion = InformacionCurso::where("id", "=", $id)
+                                        ->with('libros')
+                                        ->with('prerequisitos')
+                                        ->with('objetivos')
+                                        ->with('studentOutcomes')
+                                        ->with('temasCurso')
+                                        ->with('docentes')
                                         ->first();
         if (is_null($informacion)) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
         $detalleTipoCurso = DetalleTipoReferencia::where("id","=",$informacion->tipoCurso)
                                             ->first();
-        $informacion->libros;
-        $informacion->prerequisitos;
-        $informacion->objetivos;
-        $informacion->studentOutcomes;
-        $informacion->temasCurso;
-        $informacion->docentes;
+        // $informacion->libros;
+        // $informacion->prerequisitos;
+        // $informacion->objetivos;
+        // $informacion->studentOutcomes;
+        // $informacion->temasCurso;
+        // $informacion->docentes;
 
         $informacion->tipoCurso = $detalleTipoCurso;
+
+        return response()->json($informacion, 200);
+    }
+
+    //consultar un curso por el id del usuario y el propio id con detalles
+    public function getAllSubjectInfDetProgram($id)
+    {
+        $informacion = InformacionCurso::with('tipoCurso')
+                                        ->with('libros')
+                                        ->with('prerequisitos')
+                                        ->with('objetivos')
+                                        ->with('studentOutcomes')
+                                        ->with('temasCurso')
+                                        ->with('docentes')
+                                        ->with('profesor', function($p) use($id) {
+                                            $p->where("programa", "=", $id);
+                                        })
+                                        ->get();
 
         return response()->json($informacion, 200);
     }

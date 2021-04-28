@@ -26,6 +26,10 @@ Route::get('/user', 'UserController@user')->middleware('auth:api');
 Route::post('/register-user', 'UserController@register');
 //consulta de registros de usuario
 Route::get('/list-users', 'UserController@listUsers');
+//consulta de registros de usuario con detalles por programa
+Route::get('/list-users-details/{id}', 'UserController@listUSersDetails');
+//consulta de registros de usuario con la hoja de vida
+Route::get('/list-users-curriculum/{id}', 'UserController@listUSersCurriculum');
 //consultar usuario por id
 Route::get('/user/{id}', 'UserController@getUserById');
 //actualizar usuario
@@ -220,6 +224,8 @@ Route::get('/list-subject/{idUsuario}', 'InformacionCursoController@listSubjectI
 Route::get('/subject/{id}', 'InformacionCursoController@getSubjectInfById');
 //consultar un registro de informacion de curso por id con detalles
 Route::get('/subject-details/{id}', 'InformacionCursoController@getSubjectInfDetById');
+//consultar todos los registros de informacion de curso por id con detalles
+Route::get('/list-subject-details-program/{id}', 'InformacionCursoController@getAllSubjectInfDetProgram');
 //actualizar un registro de informacion de curso
 Route::put('/update-subject/{id}', 'InformacionCursoController@updateSubjectInf');
 //eliminar un registro de informacion de curso
