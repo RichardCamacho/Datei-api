@@ -16,10 +16,11 @@ class UserSeeder extends Seeder
     {
         $user = new User();
         $user->email = 'admin@admin.com';
-        $user->password = '$2y$10$q/CIlEIIiz5oHaBxa4UHb.5d9JAl4jotHc/8QihN24ZTl0yqcaHlm';
+        $user->password = '$2y$10$x.eZrhwj0biiJzhCPCkFOe1YOQQe.K66e0itAFWbEyKZW5XeuoHWK';
         $user->primerNombre = 'Admin';
         $user->primerApellido = 'del';
         $user->segundoApellido = 'Sistema';
+        $user->rol = 3;
         $user->save();
     }
 }

@@ -25,6 +25,11 @@ class DetalleTipoReferenciaSeeder extends Seeder
         $detalle1->tipoReferencia = 1;
         $detalle1->save();
 
+        $detalle1 = new DetalleTipoReferencia();
+        $detalle1->nombre = 'Administrador';
+        $detalle1->tipoReferencia = 1;
+        $detalle1->save();
+
         ///////////////////////////////////////////////////////////////////
         $detalle2 = new DetalleTipoReferencia();
         $detalle2->nombre = 'Ingeniería de Sistemas';
