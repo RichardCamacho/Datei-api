@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\DetalleTipoReferencia;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -117,6 +118,26 @@ class UserController extends Controller
 
         if ($result) {
             return response()->json($user, 201);
+        } else {
+            return response()->json(['message' => 'Registro no actualizado'], 400);
+        }
+    }
+
+    
+    //actualizar contraseña de usuario
+    public function updatePasswordUser(Request $request, $id)
+    {
+        //se verifica si el usuario existe
+        $user = User::find($id);
+        if (is_null($user)) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        $user->password = Hash::make($request->nueva);
+        $result = $user->save();
+
+        if ($result) {
+            return response()->json(['message' => 'Registro actualizado'], 200);
         } else {
             return response()->json(['message' => 'Registro no actualizado'], 400);
         }

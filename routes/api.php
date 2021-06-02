@@ -34,6 +34,8 @@ Route::get('/list-users-curriculum/{id}', 'UserController@listUSersCurriculum');
 Route::get('/user/{id}', 'UserController@getUserById');
 //actualizar usuario
 Route::put('/update-user/{id}', 'UserController@updateUser');
+//actualizar contraseña de usuario
+Route::put('/change-password/{id}', 'UserController@updatePasswordUser');
 //eliminar un registro de usuario
 Route::delete('/delete-user/{id}', 'UserController@deleteUser');
 
