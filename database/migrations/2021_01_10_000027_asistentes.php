@@ -27,7 +27,7 @@ class Asistentes extends Migration
             $table  ->foreign('idActa')
                     ->references('id')
                     ->on('actas_so')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
 
 

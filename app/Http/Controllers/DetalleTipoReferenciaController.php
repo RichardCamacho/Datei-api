@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleTipoReferencia;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class DetalleTipoReferenciaController extends Controller
@@ -61,12 +62,27 @@ class DetalleTipoReferenciaController extends Controller
     //eliminar un registro
     public function deleteDetalleTipoReferencia($id)//tener en cuenta lo asociado a las llaves foraneas de detalle.
     {
-        //se verifica si el usuario existe
-        $detalleTipoReferencia = DetalleTipoReferencia::find($id);
-        if (is_null($detalleTipoReferencia)) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
+        try{
+            //se verifica si el usuario existe
+            $detalleTipoReferencia = DetalleTipoReferencia::find($id);
+            if (is_null($detalleTipoReferencia)) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+            $detalleTipoReferencia->delete();
+            return response()->json(['message' => 'Registro eliminado'], 200);
+
+        } catch(QueryException $e) {
+            $code = $e->getCode();
+            switch ($code) {
+                case '23503':
+                    return response()->json(['message' => ' No se puede eliminar este Detalle porque está siendo usado'], 400);
+                    break;
+                
+                default:
+                    return response()->json($e->getMessage(), 400);
+                    break;
+            }
         }
-        $detalleTipoReferencia->delete();
-        return response()->json(['message' => 'Registro eliminado'], 200);
+        
     }
 }

@@ -32,13 +32,13 @@ class Docentes extends Migration
             $table  ->foreign('curso')
                     ->references('id')
                     ->on('cursos')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
 
             $table  ->foreign('infCurso')
                     ->references('id')
                     ->on('informacion_curso')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
         });
     }

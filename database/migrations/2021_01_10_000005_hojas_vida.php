@@ -48,7 +48,7 @@ class HojasVida extends Migration
             $table  ->foreign('idUsuario')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
         });
     }

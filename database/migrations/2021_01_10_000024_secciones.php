@@ -24,7 +24,7 @@ class Secciones extends Migration
             $table  ->foreign('idCarpeta')
                     ->references('id')
                     ->on('carpeta_asignatura')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cursos;
 use App\Models\DetalleTipoReferencia;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class CursosController extends Controller
@@ -87,13 +88,27 @@ class CursosController extends Controller
     //eliminar un registro de curso
     public function deleteCurso($id)
     {
-        //se verifica si el curso/estudio existe
-        $informacion = Cursos::find($id);
-        if (is_null($informacion)) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
+        try{
+            //se verifica si el curso/estudio existe
+            $informacion = Cursos::find($id);
+            if (is_null($informacion)) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+            $informacion->delete();
+            return response()->json(['message' => 'Registro eliminado'], 200);
+
+        } catch(QueryException $e) {
+            $code = $e->getCode();
+            switch ($code) {
+                case '23503':
+                    return response()->json(['message' => 'No se puede eliminar este Curso porque está siendo usado por un docente'], 400);
+                    break;
+                
+                default:
+                    return response()->json($e->getMessage(), 400);
+                    break;
+            }
         }
-        $informacion->delete();
-        return response()->json(['message' => 'Registro eliminado'], 200);
     }
 }
 

@@ -44,6 +44,17 @@ class CarpetasSoController extends Controller
         return response()->json($carpetaSo, 200);
     }
 
+    //consulta de todos las carpetas de so, por indicador, ordenados por nombre
+    public function listSoFolderByIndicador($ind)
+    {
+        $carpetaAsignatura = CarpetasSo::where("indicador","=",$ind)
+                            ->with('usuario')
+                            ->orderBy('nombre', 'asc')
+                            ->get();
+
+        return response()->json($carpetaAsignatura, 200);
+    }
+
     //consultar una carpeta SO por id
     public function getSoFolderById($id)
     {

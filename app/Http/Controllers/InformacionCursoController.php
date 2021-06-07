@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetalleTipoReferencia;
 use App\Models\InformacionCurso;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -82,24 +83,6 @@ class InformacionCursoController extends Controller
         return response()->json($informacion, 200);
     }
 
-    //consultar un curso por el id del usuario y el propio id con detalles
-    public function getAllSubjectInfDetProgram($id)
-    {
-        $informacion = InformacionCurso::with('tipoCurso')
-                                        ->with('libros')
-                                        ->with('prerequisitos')
-                                        ->with('objetivos')
-                                        ->with('studentOutcomes')
-                                        ->with('temasCurso')
-                                        ->with('docentes')
-                                        ->with('profesor', function($p) use($id) {
-                                            $p->where("programa", "=", $id);
-                                        })
-                                        ->get();
-
-        return response()->json($informacion, 200);
-    }
-
     //actualizar informacion de curso
     public function updateSubjectInf(Request $request, $id)
     {
@@ -136,12 +119,27 @@ class InformacionCursoController extends Controller
     //eliminar un registro de curso
     public function deleteSubjectInf($id)
     {
-        //se verifica si el curso/estudio existe
-        $informacion = InformacionCurso::find($id);
-        if (is_null($informacion)) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
+        try{
+            //se verifica si el curso/estudio existe
+            $informacion = InformacionCurso::find($id);
+            if (is_null($informacion)) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+            $informacion->delete();
+            return response()->json(['message' => 'Registro eliminado'], 200);
+
+        } catch(QueryException $e) {
+            $code = $e->getCode();
+            switch ($code) {
+                case '23503':
+                    return response()->json(['message' => 'No se puede eliminar este Curso porque está siendo usado en una Carpeta de Asignatura'], 400);
+                    break;
+                
+                default:
+                    return response()->json($e->getMessage(), 400);
+                    break;
+            }
         }
-        $informacion->delete();
-        return response()->json(['message' => 'Registro eliminado'], 200);
+        
     }
 }

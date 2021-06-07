@@ -48,7 +48,7 @@ class InformacionCurso extends Migration
             $table  ->foreign('idCurso')
                     ->references('id')
                     ->on('cursos')
-                    ->onDelete('cascade')
+                    ->onDelete('restrict')
                     ->onUpdate('cascade');
         });
     }

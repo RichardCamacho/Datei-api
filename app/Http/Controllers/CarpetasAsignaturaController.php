@@ -46,6 +46,18 @@ class CarpetasAsignaturaController extends Controller
         return response()->json($carpetaAsignatura, 200);
     }
 
+    //consulta de todos las carpetas de asignatura, por indicador, ordenados por nombre
+    public function listSubjectFolderByIndicador($ind)
+    {
+        $carpetaAsignatura = CarpetasAsignatura::where("indicador","=",$ind)
+                            ->with('asignatura')
+                            ->with('usuario')
+                            ->orderBy('nombre', 'asc')
+                            ->get();
+
+        return response()->json($carpetaAsignatura, 200);
+    }
+
     //consultar un objetivo por id
     public function getSubjectFolderById($id)
     {

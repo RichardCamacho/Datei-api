@@ -226,8 +226,6 @@ Route::get('/list-subject/{idUsuario}', 'InformacionCursoController@listSubjectI
 Route::get('/subject/{id}', 'InformacionCursoController@getSubjectInfById');
 //consultar un registro de informacion de curso por id con detalles
 Route::get('/subject-details/{id}', 'InformacionCursoController@getSubjectInfDetById');
-//consultar todos los registros de informacion de curso por id con detalles
-Route::get('/list-subject-details-program/{id}', 'InformacionCursoController@getAllSubjectInfDetProgram');
 //actualizar un registro de informacion de curso
 Route::put('/update-subject/{id}', 'InformacionCursoController@updateSubjectInf');
 //eliminar un registro de informacion de curso
@@ -310,6 +308,8 @@ Route::post('/register-subject-folder', 'CarpetasAsignaturaController@register')
 Route::get('/list-subject-folder', 'CarpetasAsignaturaController@listSubjectFolder');
 //lista de TODOS los registros de carpeta de asignatura por curso
 Route::get('/list-subject-folder/{idU}', 'CarpetasAsignaturaController@listSubjectFolderByC');
+//consultar todos los registros de carpetas por indicador
+Route::get('/list-folder-details-program/{ind}', 'CarpetasAsignaturaController@listSubjectFolderByIndicador');
 //consultar un registro de carpeta de asignatura por id
 Route::get('/subject-folder/{id}', 'CarpetasAsignaturaController@getSubjectFolderById');
 //actualizar un registro de carpeta de asignatura
@@ -352,6 +352,8 @@ Route::post('/register-so-folder', 'CarpetasSoController@register');
 Route::get('/list-so-folder', 'CarpetasSoController@listSoFolder');
 //lista de TODOS los registros de carpeta so por usuario
 Route::get('/list-so-folder/{idU}', 'CarpetasSoController@listSoFolderByU');
+//consultar todos los registros de carpetas por indicador
+Route::get('/list-so-folder-program/{ind}', 'CarpetasSoController@listSoFolderByIndicador');
 //consultar un registro de carpeta so por id
 Route::get('/so-folder/{id}', 'CarpetasSoController@getSoFolderById');
 //actualizar un registro de carpeta so

@@ -23,7 +23,7 @@ class CarpetasSo extends Model
         'idUsuario'
     ];
 
-    public function usuario()//obtiene el objeto de curso al que pertenece este detalle
+    public function usuario()//obtiene el objeto de usuario 
     {
         return $this->hasOne(User::class, 'id', 'idUsuario');
     }

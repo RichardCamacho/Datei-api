@@ -25,8 +25,13 @@ class CarpetasAsignatura extends Model
         'idUsuario'
     ];
 
-    public function usuario()//obtiene el objeto de curso al que pertenece este detalle
+    public function usuario()//obtiene el objeto usuario de la carpeta
     {
         return $this->hasOne(User::class, 'id', 'idUsuario');
+    }
+
+    public function asignatura()//obtiene el objeto asignatura de la carpeta
+    {
+        return $this->hasOne(InformacionCurso::class, 'id', 'curso');
     }
 }

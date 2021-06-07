@@ -6,6 +6,7 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\DetalleTipoReferencia;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -146,12 +147,26 @@ class UserController extends Controller
     //eliminar un registro de usuario
     public function deleteUser($id)
     {
-        //se verifica si el usuario existe
-        $user = User::find($id);
-        if (is_null($user)) {
-            return response()->json(['message' => 'Registro no encontrado'], 404);
+        try{
+            //se verifica si el usuario existe
+            $user = User::find($id);
+            if (is_null($user)) {
+                return response()->json(['message' => 'Registro no encontrado'], 404);
+            }
+            $user->delete();
+            return response()->json(['message' => 'Registro eliminado'], 200);
+
+        } catch(QueryException $e) {
+            $code = $e->getCode();
+            switch ($code) {
+                case '23503':
+                    return response()->json(['message' => 'No se puede eliminar este Usurio porque tiene información importante'], 400);
+                    break;
+                
+                default:
+                    return response()->json($e->getMessage(), 400);
+                    break;
+            }
         }
-        $user->delete();
-        return response()->json(['message' => 'Registro eliminado'], 200);
     }
 }
