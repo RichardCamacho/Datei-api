@@ -35,4 +35,19 @@ class Cursos extends Model
     {
         return $this->hasMany(Docentes::class, 'curso');
     }
+    
+    public function prerequisitos()
+    {
+        return $this->hasMany(Prerequisitos::class, 'curso');
+    }
+
+    public function objetivos()
+    {
+        return $this->hasMany(Objetivos::class, 'curso');
+    }
+
+    public function temasCurso()
+    {
+        return $this->hasMany(TemasCurso::class, 'curso');
+    }
 }

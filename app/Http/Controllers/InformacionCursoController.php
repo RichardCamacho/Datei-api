@@ -60,23 +60,13 @@ class InformacionCursoController extends Controller
     {
         $informacion = InformacionCurso::where("id", "=", $id)
                                         ->with('libros')
-                                        ->with('prerequisitos')
-                                        ->with('objetivos')
                                         ->with('studentOutcomes')
-                                        ->with('temasCurso')
-                                        ->with('docentes')
                                         ->first();
         if (is_null($informacion)) {
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
         $detalleTipoCurso = DetalleTipoReferencia::where("id","=",$informacion->tipoCurso)
-                                            ->first();
-        // $informacion->libros;
-        // $informacion->prerequisitos;
-        // $informacion->objetivos;
-        // $informacion->studentOutcomes;
-        // $informacion->temasCurso;
-        // $informacion->docentes;
+                                                 ->first();
 
         $informacion->tipoCurso = $detalleTipoCurso;
 

@@ -23,7 +23,7 @@ class ObjetivosEspecificos extends Migration
             //foreign key
             $table  ->foreign('curso')
                     ->references('id')
-                    ->on('informacion_curso')
+                    ->on('cursos')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
         });

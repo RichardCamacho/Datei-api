@@ -45,9 +45,10 @@ class UserController extends Controller
     }
 
     //consulta de todos los usuarios, ordenados de A-Z
-    public function listUSers()
+    public function listUsers()
     {
-        $users = User::orderBy('primerNombre', 'asc')
+        $users = User::where('primerNombre', '!=', 'Admin')
+            ->orderBy('primerNombre', 'asc')
             ->get();
         return response()->json($users, 200);
     }
@@ -56,6 +57,7 @@ class UserController extends Controller
     public function listUSersDetails($id)
     {
         $users = User:: where('programa', '=', $id)
+                        ->where('primerNombre', '!=', 'Admin')
                         ->with('rango')
                         ->with('rol')
                         ->with('programa')

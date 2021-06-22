@@ -37,6 +37,7 @@ class InformacionCurso extends Model
     {
         return $this->hasOne(DetalleTipoReferencia::class, 'id', 'tipoCurso');
     }
+    
     public function profesor()
     {
         return $this->hasOne(User::class, 'id', 'idUsuario');
@@ -47,28 +48,8 @@ class InformacionCurso extends Model
         return $this->hasMany(Libros::class, 'curso');
     }
 
-    public function prerequisitos()
-    {
-        return $this->hasMany(Prerequisitos::class, 'curso');
-    }
-
-    public function objetivos()
-    {
-        return $this->hasMany(Objetivos::class, 'curso');
-    }
-
     public function studentOutcomes()
     {
         return $this->hasMany(StudentOutcomes::class, 'curso');
-    }
-
-    public function temasCurso()
-    {
-        return $this->hasMany(TemasCurso::class, 'curso');
-    }
-
-    public function docentes()
-    {
-        return $this->hasMany(Docentes::class, 'curso');
     }
 }
