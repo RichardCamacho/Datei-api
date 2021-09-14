@@ -16,8 +16,8 @@ class Cursos extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->bigIncrements('id')->nullable(false);//primary key
             $table->string('codigo', 100)->nullable(false);
-            $table->string('nombreEspaniol', 100)->nullable(true);
-            $table->string('nombreIngles', 100)->nullable(true);
+            $table->string('nombreEspaniol', 100)->nullable(false);
+            $table->string('nombreIngles', 100)->nullable(false);
             $table->integer('numeroCreditos')->nullable(false);
             $table->integer('horasSemestre')->nullable(false);
             $table->unsignedBigInteger('tipoCurso')->nullable(false);

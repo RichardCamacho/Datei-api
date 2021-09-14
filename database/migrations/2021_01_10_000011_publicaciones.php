@@ -38,6 +38,6 @@ class Publicaciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publicacion');
+        Schema::dropIfExists('publicaciones');
     }
 }

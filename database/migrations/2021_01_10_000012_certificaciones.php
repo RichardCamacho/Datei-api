@@ -37,6 +37,6 @@ class Certificaciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificacion');
+        Schema::dropIfExists('certificaciones');
     }
 }
